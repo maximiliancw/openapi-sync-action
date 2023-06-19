@@ -1,4 +1,4 @@
-name: Test: OpenAPI Sync Action
+name: OpenAPI Sync Action Test
 run-name: Test repository syncing with remote OpenAPI specification file
 on: [push]
 jobs:
