@@ -29,21 +29,3 @@ runs:
             curl -o openapi.yaml ${{ inputs.openapi-url }}
             echo "commit=true" >> $GITHUB_OUTPUT
         fi
-
-    - name: "Add and Commit files"
-      run: |
-        git status
-        git pull
-        git config --global user.email "wunderkind.serie-0f@icloud.com"
-        git config --global user.name "maximiliancw"
-        git add ${{ github.workspace }}/openapi.yaml
-        git commit -am "Sync OpenAPI specs"
-      shell: bash
-      if: ${{ steps.sync.outputs.commit }}
-
-    - name: "Push changes"
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ github.token }}
-        branch: ${{ github.ref }}
-      if: ${{ steps.sync.outputs.commit }}
