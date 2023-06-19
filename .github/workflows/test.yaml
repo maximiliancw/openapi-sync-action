@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Run action"
-        uses: maximiliancw/openapi-sync-action@latest
+        uses: maximiliancw/openapi-sync-action
         with:
           openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
           # openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml
