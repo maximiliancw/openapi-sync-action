@@ -9,6 +9,8 @@ inputs:
     description: "URL to the OpenAPI spec file"
     required: true
 
+on: push
+
 runs:
   using: composite
   steps:
