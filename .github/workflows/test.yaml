@@ -1,0 +1,15 @@
+name: "Test: OpenAPI Sync Action"
+description: "Claim: Sync repository with a remote OpenAPI specification file"
+branding:
+  icon: download
+  color: blue
+
+runs:
+  using: composite
+  steps:
+    - name: "Run action"
+      uses: maximiliancw/openapi-sync-action@latest
+      with:
+        openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+        # openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml
+        commit-to-git: true
