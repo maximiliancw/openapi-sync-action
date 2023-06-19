@@ -34,6 +34,8 @@ runs:
       run: |
         git status
         git pull
+        git config --global user.email "wunderkind.serie-0f@icloud.com"
+        git config --global user.name "maximiliancw"
         git add ${{ github.workspace }}/openapi.yaml
         git commit -am "Sync OpenAPI specs"
       shell: bash
