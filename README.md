@@ -1,4 +1,4 @@
 # openapi-sync-action
 
-GitHub action for downloading a remote `openapi.yaml` and saving it to the repository
+GitHub action for downloading and saving a remote `openapi.yaml` file
 
