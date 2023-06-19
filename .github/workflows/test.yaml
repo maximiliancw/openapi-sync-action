@@ -1,17 +1,12 @@
-name: OpenAPI Sync Action Test
-run-name: Test repository syncing with remote OpenAPI specification file
-on:
-  push:
-    branches: [ "main" ]
+on: [push]
+
 jobs:
-  test:
+  test_openapi_sync_action:
     runs-on: ubuntu-latest
+    name: Test openapi-sync-action
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
-      - name: "Run action"
-        uses: maximiliancw/openapi-sync-action@latest
+      - uses: actions/checkout@v3
+      - uses: maximiliancw/hello-world-composite-action@latest
         with:
-          openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
-          # openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml
-          commit-to-git: true
+          openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml'
+          # openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml'
