@@ -9,8 +9,8 @@ jobs:
 
       - uses: maximiliancw/openapi-sync-action@latest
         with:
-          openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml'
-          # openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml'
+          # openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml'
+          openapi-url: 'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml'
 
       # Commit all changed files back to the repository
       - uses: stefanzweifel/git-auto-commit-action@v4
