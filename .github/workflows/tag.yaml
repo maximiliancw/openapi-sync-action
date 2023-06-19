@@ -3,7 +3,7 @@ on:
     branches: [ "main" ]
 jobs:
     create_latest_tag:
-      name: "Create @latest tag"
+      name: "Create latest tag"
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2

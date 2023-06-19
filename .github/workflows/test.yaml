@@ -2,7 +2,7 @@ name: OpenAPI Sync Action Test
 run-name: Test repository syncing with remote OpenAPI specification file
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 jobs:
   test:
     runs-on: ubuntu-latest
