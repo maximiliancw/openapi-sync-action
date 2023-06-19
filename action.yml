@@ -8,7 +8,6 @@ runs:
   using: "composite"
   steps:
     - name: "Sync OpenAPI specs"
-      id: sync
       shell: bash
       run: |
         if test -f "openapi.yaml"
@@ -25,4 +24,5 @@ runs:
             fi
         else
             curl -o openapi.yaml ${{ inputs.openapi-url }}
+            echo Downloaded openapi.yaml
         fi
