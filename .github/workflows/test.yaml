@@ -1,5 +1,3 @@
-name: ""
-description: ""
 name: Test: OpenAPI Sync Action
 run-name: Test repository syncing with remote OpenAPI specification file
 on: [push]
