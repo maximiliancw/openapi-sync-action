@@ -1,56 +1,53 @@
-name: "OpenAPI Sync Action"
-description: "Sync repository with a remote OpenAPI specification file"
-branding:
-  icon: download
-  color: blue
-
 inputs:
   openapi-url:
     description: "URL to the OpenAPI spec file"
     required: true
 
-on: push
+name: OpenAPI Sync Action
+run-name: Sync repository with remote OpenAPI specification file
+on: [push]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
 
-runs:
-  using: composite
-  steps:
-    - name: "Checkout"
-      uses: actions/checkout@v2
+      - name: "Sync OpenAPI specs"
+        id: sync
+        shell: bash
+        run: |
+          if test -f "openapi.yaml"
+          then
+              curl -o openapi.yaml~ ${{ inputs.openapi-url }}
+              if ! cmp -s openapi.yaml openapi.yaml~
+              then
+                  rm openapi.yaml
+                  mv openapi.yaml~ openapi.yaml
+                  echo Updated openapi.yaml
+                  echo "commit=true" >> $GITHUB_OUTPUT
+              else
+                  rm openapi.yaml~
+                  echo No update available
+                  echo "commit=false" >> $GITHUB_OUTPUT
+              fi
+          else
+              curl -o openapi.yaml ${{ inputs.openapi-url }}
+              echo "commit=true" >> $GITHUB_OUTPUT
+          fi
 
-    - name: "Sync OpenAPI specs"
-      id: sync
-      run: |
-        if test -f "openapi.yaml"
-        then
-            curl -o openapi.yaml~ ${{ inputs.openapi-url }}
-            if ! cmp -s openapi.yaml openapi.yaml~
-            then
-                rm openapi.yaml
-                mv openapi.yaml~ openapi.yaml
-                echo Updated openapi.yaml
-                echo "commit=true" >> $GITHUB_OUTPUT
-            else
-                rm openapi.yaml~
-                echo No update available
-                echo "commit=false" >> $GITHUB_OUTPUT
-            fi
-        else
-            curl -o openapi.yaml ${{ inputs.openapi-url }}
-            echo "commit=true" >> $GITHUB_OUTPUT
-        fi
+      - name: "Add and Commit files"
+        run: |
+          git status
+          git pull
+          git add ${{ github.workspace }}/openapi.yaml
+          git commit -am "Sync OpenAPI specs"
+        shell: bash
+        if: ${{ inputs.commit-to-git == 'true' }} && {{ steps.sync.outputs.commit }}
 
-    - name: "Add and Commit files"
-      run: |
-        git status
-        git pull
-        git add ${{ github.workspace }}/openapi.yaml
-        git commit -am "Sync OpenAPI specs"
-      shell: bash
-      if: ${{ inputs.commit-to-git == 'true' }} && {{ steps.sync.outputs.commit }}
-
-    - name: "Push changes"
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ github.token }}
-        branch: ${{ github.ref }}
-      if: ${{ inputs.commit-to-git == 'true' }} && {{ steps.sync.outputs.commit }}
+      - name: "Push changes"
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ github.token }}
+          branch: ${{ github.ref }}
+        if: ${{ inputs.commit-to-git == 'true' }} && {{ steps.sync.outputs.commit }}
