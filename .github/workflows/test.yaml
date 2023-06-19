@@ -2,13 +2,13 @@ name: OpenAPI Sync Action Test
 run-name: Test repository syncing with remote OpenAPI specification file
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: "Run action"
-        uses: maximiliancw/openapi-sync-action
+        uses: maximiliancw/openapi-sync-action@latest
         with:
           openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
           # openapi-url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml
